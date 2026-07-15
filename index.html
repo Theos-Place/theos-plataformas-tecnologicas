@@ -60,7 +60,7 @@ body {
 }
 .hero-inner {
   position: relative; z-index: 2;
-  max-width: 1100px; margin: 0 auto;
+  max-width: 100%; margin: 0;
   display: flex; align-items: flex-end;
   justify-content: space-between; gap: 28px; flex-wrap: wrap;
 }
@@ -102,6 +102,7 @@ body {
   background: #fff;
   border-bottom: 1px solid var(--outline);
   padding: 12px 48px;
+  width: 100%;
   display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
   position: sticky; top: 0; z-index: 20;
 }
@@ -123,7 +124,7 @@ body {
 .filter-btn.active { background: var(--brand-navy-deep); border-color: var(--brand-navy-deep); color: #fff; }
 
 /* ── MAIN ─────────────────────────────────────────────── */
-.main { max-width: 1100px; margin: 0 auto; padding: 40px 48px 80px; }
+.main { max-width: 100%; margin: 0; padding: 40px 48px 80px; }
 
 /* ── SECTION LABEL ────────────────────────────────────── */
 .section-label {
@@ -334,11 +335,22 @@ footer span { font-size: 11px; color: rgba(255,255,255,0.35); }
 
 /* ── RESPONSIVE ───────────────────────────────────────── */
 @media (max-width: 700px) {
-  .hero, .filters-bar, .main, footer { padding-left: 18px; padding-right: 18px; }
-  .hero-title { font-size: 28px; }
+  .hero, .filters-bar, .main, footer { padding-left: 16px; padding-right: 16px; }
+  .hero-title { font-size: 26px; }
+  .hero-sub { font-size: 12px; }
   .td-desc, .td-account { display: none; }
-  thead th:nth-child(2), thead th:nth-child(3) { display: none; }
-  .summary-nums { gap: 18px; }
+  thead th:nth-child(3), thead th:nth-child(4) { display: none; }
+  .summary-nums { gap: 16px; }
+  .hero-pills { gap: 8px; }
+  .hero-pill { min-width: 80px; padding: 10px 14px; }
+  .hero-pill .val { font-size: 18px; }
+  .summary-section { padding: 20px 16px; }
+  .table-wrap-scroll { border-radius: 12px; }
+}
+@media (max-width: 400px) {
+  .hero-title { font-size: 22px; }
+  .td-price { min-width: 90px; }
+  .price-main { font-size: 13px; }
 }
 </style>
 </head>
@@ -357,24 +369,24 @@ footer span { font-size: 11px; color: rgba(255,255,255,0.35); }
 </div>
 <div class="hero-pills">
 <div class="hero-pill">
-<span class="val" id="counter">32</span>
+<span class="val" id="counter">30</span>
 <span class="lbl">Plataformas</span>
 </div>
 <div class="hero-pill coral">
-<span class="val">~$455</span>
+<span class="val">~$759</span>
 <span class="lbl">Prom. mensual</span>
 </div>
 <div class="hero-pill teal">
-<span class="val">~$5,463</span>
+<span class="val">~$9,111</span>
 <span class="lbl">Est. anual</span>
 </div>
 </div>
 </div>
 </header>
 <!-- FILTERS -->
-<nav class="filters-bar">
+<nav aria-label="Filtrar plataformas" class="filters-bar">
 <span class="filters-lbl">Filtrar</span>
-<button class="filter-btn active" onclick="filterRows('all',this)">Todas</button>
+<button aria-pressed="true" class="filter-btn active" onclick="filterRows('all',this)">Todas</button>
 <button class="filter-btn" onclick="filterRows('web',this)">Web</button>
 <button class="filter-btn" onclick="filterRows('infra',this)">Infraestructura</button>
 <button class="filter-btn" onclick="filterRows('diseno',this)">Diseño &amp; Código</button>
@@ -388,7 +400,7 @@ footer span { font-size: 11px; color: rgba(255,255,255,0.35); }
 <div class="section-group" data-section="web infra">
 <div class="section-label"><span class="section-label-text" style="color:var(--brand-coral)">Web, Infraestructura &amp; Datos</span><div class="section-label-line"></div></div>
 <div class="table-wrap-scroll"><div class="table-wrap" style="border-radius:18px;box-shadow:none;border:none">
-<table>
+<table role="table">
 <thead><tr><th>Plataforma</th><th>Descripción</th><th>Cuenta</th><th>Estado</th><th>Costo</th></tr></thead>
 <tbody>
 <tr data-cat="web">
@@ -411,13 +423,6 @@ footer span { font-size: 11px; color: rgba(255,255,255,0.35); }
 <td class="td-account">ti@theosplace.org<div class="td-link"><a href="https://theosplace.app.n8n.cloud/home/workflows" target="_blank">theosplace.app.n8n.cloud ↗</a></div></td>
 <td class="td-badge"><span class="badge badge-activo">Activo</span></td>
 <td class="td-price"><span class="price-main">$24</span><span class="price-period">por mes</span></td>
-</tr>
-<tr class="is-legacy" data-cat="infra">
-<td class="td-name"><div class="td-name-main">AWS Lightsail</div><div class="td-name-sub">WordPress hosting</div></td>
-<td class="td-desc">Hosting de WordPress en Lightsail. Servicio cancelado — costo residual este mes.</td>
-<td class="td-account">IAM: TheosTI<div class="td-link"><a href="https://767396970918.signin.aws.amazon.com/console" target="_blank">aws.amazon.com/console ↗</a></div></td>
-<td class="td-badge"><span class="badge badge-legacy">Legacy</span></td>
-<td class="td-price"><span class="price-main">~$9</span><span class="price-period">último mes (cancelado)</span></td>
 </tr>
 <tr data-cat="infra">
 <td class="td-name"><div class="td-name-main">DomainsPricedRight</div><div class="td-name-sub">Registro de dominio</div></td>
@@ -469,7 +474,7 @@ footer span { font-size: 11px; color: rgba(255,255,255,0.35); }
 <div class="section-group" data-section="diseno">
 <div class="section-label"><span class="section-label-text" style="color:var(--brand-coral)">Diseño &amp; Código</span><div class="section-label-line"></div></div>
 <div class="table-wrap-scroll"><div class="table-wrap" style="border-radius:18px;box-shadow:none;border:none">
-<table>
+<table role="table">
 <thead><tr><th>Plataforma</th><th>Descripción</th><th>Cuenta</th><th>Estado</th><th>Costo</th></tr></thead>
 <tbody>
 <tr data-cat="diseno">
@@ -522,15 +527,15 @@ footer span { font-size: 11px; color: rgba(255,255,255,0.35); }
 <div class="section-group" data-section="auto">
 <div class="section-label"><span class="section-label-text" style="color:var(--brand-coral)">Productividad</span><div class="section-label-line"></div></div>
 <div class="table-wrap-scroll"><div class="table-wrap" style="border-radius:18px;box-shadow:none;border:none">
-<table>
+<table role="table">
 <thead><tr><th>Plataforma</th><th>Descripción</th><th>Cuenta</th><th>Estado</th><th>Costo</th></tr></thead>
 <tbody>
 <tr data-cat="auto">
 <td class="td-name"><div class="td-name-main">Microsoft 365</div><div class="td-name-sub">Suite de productividad</div></td>
-<td class="td-desc">Business Basic (11 lic. × $6.30) + Business Standard (4 lic. × $12.50). Email, Teams, SharePoint, OneDrive, Power Automate y más.</td>
+<td class="td-desc">Business Basic (11 lic. × $6.30) + Business Standard (4 lic. × $12.50) + 1 lic. adicional ($14). Email, Teams, SharePoint, OneDrive, Power Automate y más.</td>
 <td class="td-account">ti@theosplace.org<div class="td-link"><a href="https://admin.microsoft.com" target="_blank">admin.microsoft.com ↗</a></div></td>
 <td class="td-badge"><span class="badge badge-activo">Activo</span></td>
-<td class="td-price"><span class="price-main">$119.30</span><span class="price-period">por mes (15 licencias)</span></td>
+<td class="td-price"><span class="price-main">$133.30</span><span class="price-period">por mes (16 licencias)</span></td>
 </tr>
 <tr data-cat="auto">
 <td class="td-name"><div class="td-name-main">Dropbox</div><div class="td-name-sub">Almacenamiento en la nube</div></td>
@@ -572,15 +577,9 @@ footer span { font-size: 11px; color: rgba(255,255,255,0.35); }
 <td class="td-desc">Sistema de gestión de iglesia (PushPay). Será reemplazado por el nuevo sistema interno cuando esté listo.</td>
 <td class="td-account">ti@theosplace.org<div class="td-link"><a href="https://theosplace.ccbchurch.com/index.php" target="_blank">theosplace.ccbchurch.com ↗</a></div></td>
 <td class="td-badge"><span class="badge badge-activo">Activo</span></td>
-<td class="td-price"><span class="price-main tbd">?</span><span class="price-period">verificar precio</span></td>
+<td class="td-price"><span class="price-main">$290</span><span class="price-period">por mes</span></td>
 </tr>
-<tr class="is-legacy" data-cat="auto">
-<td class="td-name"><div class="td-name-main">MooDIY Cloud</div><div class="td-name-sub">LMS / Educación</div></td>
-<td class="td-desc">Hosting administrado de Moodle LMS. Cuenta activa pero sin uso actualmente.</td>
-<td class="td-account">theosplaceti@gmail.com<div class="td-link"><a href="https://portal.moodiycloud.com/login" target="_blank">portal.moodiycloud.com ↗</a></div></td>
-<td class="td-badge"><span class="badge badge-legacy">Legacy</span></td>
-<td class="td-price"><span class="price-main free">Gratis</span><span class="price-period">Essentials Free</span></td>
-</tr>
+
 </tbody>
 </table>
 </div></div>
@@ -589,7 +588,7 @@ footer span { font-size: 11px; color: rgba(255,255,255,0.35); }
 <div class="section-group" data-section="marketing">
 <div class="section-label"><span class="section-label-text" style="color:var(--brand-coral)">Comunicación &amp; Marketing</span><div class="section-label-line"></div></div>
 <div class="table-wrap-scroll"><div class="table-wrap" style="border-radius:18px;box-shadow:none;border:none">
-<table>
+<table role="table">
 <thead><tr><th>Plataforma</th><th>Descripción</th><th>Cuenta</th><th>Estado</th><th>Costo</th></tr></thead>
 <tbody>
 <tr data-cat="marketing">
@@ -614,17 +613,16 @@ footer span { font-size: 11px; color: rgba(255,255,255,0.35); }
 <div class="section-group" data-section="pagos">
 <div class="section-label"><span class="section-label-text" style="color:var(--brand-coral)">Pagos</span><div class="section-label-line"></div></div>
 <div class="table-wrap-scroll"><div class="table-wrap" style="border-radius:18px;box-shadow:none;border:none">
-<table>
+<table role="table">
 <thead><tr><th>Plataforma</th><th>Descripción</th><th>Cuenta</th><th>Estado</th><th>Costo</th></tr></thead>
 <tbody>
 <tr data-cat="pagos">
 <td class="td-name"><div class="td-name-main">Tilopay</div><div class="td-name-sub">Procesador de pagos CR</div></td>
 <td class="td-desc">Pasarela de pagos para CR. Activar módulo SINPE pendiente.</td>
 <td class="td-account">ti@theosplace.org<div class="td-link"><a href="https://admin.tilopay.com" target="_blank">admin.tilopay.com ↗</a></div></td>
-<td class="td-badge"><span class="badge badge-revisar">En progreso</span></td>
+<td class="td-badge"><span class="badge badge-legacy">A futuro</span></td>
 <td class="td-price"><span class="price-main" style="font-size:12px">Tarjeta CR: 4.25% + $0.35</span><span class="price-period">SINPE: ~2% + $0.35</span><span class="price-period">Internacional: ❌</span></td>
 </tr>
-
 <tr data-cat="pagos">
 <td class="td-name"><div class="td-name-main">Yomeuno</div><div class="td-name-sub">Donaciones en línea</div></td>
 <td class="td-desc">Plataforma de donaciones del BAC Credomatic. Perfil activo hace más de 8 años. El 100% de cada donación llega a la organización.</td>
@@ -640,7 +638,7 @@ footer span { font-size: 11px; color: rgba(255,255,255,0.35); }
 <div class="section-group" data-section="ia">
 <div class="section-label"><span class="section-label-text" style="color:var(--brand-coral)">Inteligencia Artificial</span><div class="section-label-line"></div></div>
 <div class="table-wrap-scroll"><div class="table-wrap" style="border-radius:18px;box-shadow:none;border:none">
-<table>
+<table role="table">
 <thead><tr><th>Plataforma</th><th>Descripción</th><th>Cuenta</th><th>Estado</th><th>Costo</th></tr></thead>
 <tbody>
 <tr data-cat="ia">
@@ -662,14 +660,13 @@ footer span { font-size: 11px; color: rgba(255,255,255,0.35); }
 </div></div>
 </div>
 <!-- SUMMARY -->
-
 <div class="section-group" data-section="marketing">
 <div class="section-label">
 <span class="section-label-text" style="color:var(--brand-coral)">Contenido &amp; Medios</span>
 <div class="section-label-line"></div>
 </div>
 <div class="table-wrap-scroll"><div class="table-wrap" style="border-radius:18px;box-shadow:none;border:none">
-<table>
+<table role="table">
 <thead><tr><th>Plataforma</th><th>Descripción</th><th>Cuenta</th><th>Estado</th><th>Costo</th></tr></thead>
 <tbody>
 <tr data-cat="marketing">
@@ -699,22 +696,22 @@ footer span { font-size: 11px; color: rgba(255,255,255,0.35); }
 </div>
 <div class="summary-nums">
 <div class="summary-num">
-<span class="val">~$400</span>
+<span class="val">~$704</span>
 <span class="lbl">Mínimo mensual</span>
 </div>
 <div class="summary-num coral">
-<span class="val">~$455</span>
+<span class="val">~$759</span>
 <span class="lbl">Promedio mensual</span>
 </div>
 <div class="summary-num teal">
-<span class="val">~$5,463</span>
+<span class="val">~$9,111</span>
 <span class="lbl">Estimado anual</span>
 </div>
 </div>
 </div>
 </div>
 <div class="nota">
-    ⚠️ META Ads y AWS usan promedios estimados. Tilopay y PayPal cobran comisión por transacción, no incluida en el total. Wix antiguo ya está pagado hasta junio 2027 — no renovar. Adobe Cloud (3 cuentas), CapCut* y Opus Clip* pendientes de confirmar precio.
+    ⚠️ META Ads y AWS usan promedios estimados. Tilopay cobra comisión por transacción, no incluida en el total. Wix antiguo ya está pagado hasta junio 2027 — no renovar. Adobe Cloud (3 cuentas), CapCut* y Opus Clip* pendientes de confirmar precio.
   </div>
 </main>
 <footer>
